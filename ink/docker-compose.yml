@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  https-portal:
+    image: steveltn/https-portal:1
+    ports:
+      - '80:80'
+      - '443:443'
+    restart: always
+    environment:
+      DOMAINS: 'develop.ink-remix.blockchain-it.hr -> http://ink-remix-dev:10000, staging.ink-remix.blockchain-it.hr -> http://ink-remix-stag:10000'
+      STAGE: 'production'
+    container_name: nginx
+    networks:
+      - ink-remix
+
+  ink-remix-dev:
+    image: blockchainit/ink-backend:latest
+    ports:
+      - 10000:10000
+    container_name: ink-remix-dev
+    networks:
+      - ink-remix
+
+  # Update when staging is developed
+  ink-remix-stag:
+    image: blockchainit/ink-backend:latest
+    ports:
+      - 11000:10000
+    container_name: ink-remix-stag
+    networks:
+      - ink-remix     
+
+networks:
+  ink-remix:
