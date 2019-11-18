@@ -14,7 +14,6 @@ services:
     networks:
       - ink-remix
 
-
   ink-remix-plugin-dev:
     image: blockchainit/ink-plugin:latest
     container_name: ink-remix-plugin-dev
