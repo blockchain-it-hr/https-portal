@@ -8,7 +8,7 @@ services:
       - '443:443'
     restart: always
     environment:
-      DOMAINS: 'develop.ink-remix.blockchain-it.hr -> http://ink-remix-plugin-dev:10000, staging.ink-remix.blockchain-it.hr -> http://ink-remix-plugin-stag:10000, server.develop.ink-remix.blockchain-it.hr -> http://ink-remix-server-dev:10000, server.staging.ink-remix.blockchain-it.hr -> http://ink-remix-server-stag:10000'
+      DOMAINS: 'develop.ink-remix.blockchain-it.hr -> http://ink-remix-plugin-dev:10000, staging.ink-remix.blockchain-it.hr -> http://ink-remix-plugin-stag:11000, server.develop.ink-remix.blockchain-it.hr -> http://ink-remix-server-dev:10000, server.staging.ink-remix.blockchain-it.hr -> http://ink-remix-server-stag:10000'
       STAGE: 'production'
     container_name: nginx
     networks:
@@ -19,12 +19,16 @@ services:
     container_name: ink-remix-plugin-dev
     networks:
       - ink-remix
+    ports:
+      - '10000:80'
 
   ink-remix-plugin-stag:
     image: blockchainit/ink-plugin:latest
     container_name: ink-remix-plugin-stag
     networks:
-      - ink-remix      
+      - ink-remix 
+    ports:
+      - '11000:80'     
 
   ink-remix-server-dev:
     image: blockchainit/ink-server:latest
