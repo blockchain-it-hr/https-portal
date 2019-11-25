@@ -8,36 +8,55 @@ services:
       - '443:443'
     restart: always
     environment:
-      DOMAINS: 'develop.ink-remix.blockchain-it.hr -> http://ink-remix-plugin-dev:10000, staging.ink-remix.blockchain-it.hr -> http://ink-remix-plugin-stag:10000, server.develop.ink-remix.blockchain-it.hr -> http://ink-remix-server-dev:10000, server.staging.ink-remix.blockchain-it.hr -> http://ink-remix-server-stag:10000'
+      DOMAINS: 'develop.ink-remix.blockchain-it.hr -> http://ink-remix-plugin-dev:3000, server.develop.ink-remix.blockchain-it.hr -> ws://ink-remix-server-dev:65520'
       STAGE: 'production'
     container_name: nginx
     networks:
-      - ink-remix
+      - ink-remix-dev
 
   ink-remix-plugin-dev:
     image: blockchainit/ink-plugin:latest
     container_name: ink-remix-plugin-dev
     networks:
-      - ink-remix
-
-  ink-remix-plugin-stag:
-    image: blockchainit/ink-plugin:latest
-    container_name: ink-remix-plugin-stag
-    networks:
-      - ink-remix      
+      - ink-remix-dev
+    ports:
+      - "3000:80"
 
   ink-remix-server-dev:
     image: blockchainit/ink-server:latest
     container_name: ink-remix-server-dev
     networks:
-      - ink-remix
+      - ink-remix-dev
+    ports:
+      - "65520:65520"
 
   # Update when staging is developed
-  ink-remix-server-stag:
-    image: blockchainit/ink-server:latest
-    container_name: ink-remix-server-stag
-    networks:
-      - ink-remix     
+  #ink-remix-plugin-stag:
+  #  image: blockchainit/ink-plugin:stag
+  #  container_name: ink-remix-plugin-stag
+  #  networks:
+  #    - ink-remix-stag
+
+  #ink-remix-server-stag:
+  #  image: blockchainit/ink-server:stag
+  #  container_name: ink-remix-server-stag
+  #  networks:
+  #    - ink-remix-stag
+
+  # Update when production is developed
+  #ink-remix-plugin-production:
+  #  image: blockchainit/ink-plugin:stag
+  #  container_name: ink-remix-plugin-stag
+  #  networks:
+  #    - ink-remix-prod
+
+  #ink-remix-server-production:
+  #  image: blockchainit/ink-server:stable
+  #  container_name: ink-remix-server-stable
+  #  networks:
+  #    - ink-remix-prod
 
 networks:
-  ink-remix:
+  ink-remix-dev:
+  #ink-remix-stag:
+  #ink-remix-prod:
