@@ -8,8 +8,9 @@ services:
       - '443:443'
     restart: always
     environment:
-      DOMAINS: 'develop.ink-remix.blockchain-it.hr, server.develop.ink-remix.blockchain-it.hr -> ws://ink-remix-server-dev:65520'
+      DOMAINS: 'develop.ink-remix.blockchain-it.hr -> http://ink-remix-plugin-dev:3000, server.develop.ink-remix.blockchain-it.hr -> http://ink-remix-server-dev:65520'
       STAGE: 'production'
+      WEBSOCKET: 'true'
     container_name: nginx
     networks:
       - ink-remix-dev
@@ -20,9 +21,7 @@ services:
     networks:
       - ink-remix-dev
     ports:
-      - "3000:80"
-    volumes:
-      - /data/https-portal/develop.ink-remix.blockchain-it.hr/:/app/dist/
+      - "3000:3000"
 
   ink-remix-server-dev:
     image: blockchainit/ink-server:develop
