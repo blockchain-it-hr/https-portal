@@ -15,7 +15,7 @@ services:
       - ink-remix-dev
 
   ink-remix-plugin-dev:
-    image: blockchainit/ink-plugin:latest
+    image: blockchainit/ink-plugin:develop
     container_name: ink-remix-plugin-dev
     networks:
       - ink-remix-dev
@@ -25,7 +25,7 @@ services:
       - /data/https-portal/develop.ink-remix.blockchain-it.hr/:/app/dist/
 
   ink-remix-server-dev:
-    image: blockchainit/ink-server:latest
+    image: blockchainit/ink-server:develop
     container_name: ink-remix-server-dev
     networks:
       - ink-remix-dev
