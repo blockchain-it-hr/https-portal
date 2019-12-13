@@ -8,56 +8,28 @@ services:
       - '443:443'
     restart: always
     environment:
-      DOMAINS: 'develop.ink-remix.blockchain-it.hr -> http://ink-remix-plugin-dev:3000, server.develop.ink-remix.blockchain-it.hr -> http://ink-remix-server-dev:65520'
+      DOMAINS: 'develop.ink-remix.blockchain-it.hr -> http://ink-plugin:3000, server.develop.ink-remix.blockchain-it.hr -> http://ink-server:65520'
       STAGE: 'production'
       WEBSOCKET: 'true'
     container_name: nginx
     networks:
-      - ink-remix-dev
+      - ink-network
 
-  ink-remix-plugin-dev:
-    image: blockchainit/ink-plugin:develop
-    container_name: ink-remix-plugin-dev
+  ink-plugin:
+    image: blockchainit/ink-plugin:latest
+    container_name: ink-plugin
     networks:
-      - ink-remix-dev
+      - ink-network
     ports:
-      - "3000:3000"
+      - "3000:80"
 
-  ink-remix-server-dev:
-    image: blockchainit/ink-server:develop
-    container_name: ink-remix-server-dev
+  ink-server:
+    image: blockchainit/ink-server:latest
+    container_name: ink-server
     networks:
-      - ink-remix-dev
+      - ink-network
     ports:
       - "65520:65520"
 
-  # Update when staging is developed
-  #ink-remix-plugin-stag:
-  #  image: blockchainit/ink-plugin:stag
-  #  container_name: ink-remix-plugin-stag
-  #  networks:
-  #    - ink-remix-stag
-
-  #ink-remix-server-stag:
-  #  image: blockchainit/ink-server:stag
-  #  container_name: ink-remix-server-stag
-  #  networks:
-  #    - ink-remix-stag
-
-  # Update when production is developed
-  #ink-remix-plugin-production:
-  #  image: blockchainit/ink-plugin:stag
-  #  container_name: ink-remix-plugin-stag
-  #  networks:
-  #    - ink-remix-prod
-
-  #ink-remix-server-production:
-  #  image: blockchainit/ink-server:stable
-  #  container_name: ink-remix-server-stable
-  #  networks:
-  #    - ink-remix-prod
-
 networks:
-  ink-remix-dev:
-  #ink-remix-stag:
-  #ink-remix-prod:
+  ink-network:
